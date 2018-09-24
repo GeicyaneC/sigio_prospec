@@ -1,0 +1,15 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.panelbar{
+    width: auto;
+    height: 60px;
+}
+
+.tabela-dados{
+	padding-top: 5px;
+	margin: 0 auto;
+}
+
