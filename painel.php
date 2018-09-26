@@ -11,6 +11,7 @@
     $EmpresaDAO = new EmpresaDAO();
     $Empresa = new Empresa();
     
+    //ação para inserir um novo cadastro na base de dados
     require_once './actions/inserirEmpresa.action.php';
 ?>
 <html>
@@ -29,7 +30,7 @@
     </div><!--panelbar-->
     
     <div class="tabela-dados">
-        <table class="table">
+        <table class="table table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">ID</th>
@@ -38,42 +39,15 @@
                     <th scope="col">Nome Fantasia</th>
                     <th scope="col">Telefone</th>
                     <th scope="col">Celular</th>
-                    <th scope="col">Contato</th>
+                    <th scope="col">Contato Responsável</th>
                     <th scope="col">Status</th>
                     <th scope="col">Ações</th>
                 </tr>
             </thead>
             
             <tbody>
-                <?php
-                    $listarEmpresas = $EmpresaDAO->exibirEmpresas();
-                        if($listarEmpresas == true){
-                            for($i = 0; $i < mysqli_num_rows($listarEmpresas); $i++){
-                            $linhaListarEmpresas = mysqli_fetch_array($listarEmpresas);
-                            echo "
-
-                                <tr>
-                                    <th>".$linhaListarEmpresas['id']."</th>
-                                    <td>".$linhaListarEmpresas['cnpj']."</td>    
-                                    <td>".$linhaListarEmpresas['razao_social']."</td>
-                                    <td>".$linhaListarEmpresas['nome_fantasia']."</td>
-                                    <td>".$linhaListarEmpresas['telefone']."</td>
-                                    <td>".$linhaListarEmpresas['celular']."</td>
-                                    <td>".$linhaListarEmpresas['contato']."</td>
-                                    <td>".$linhaListarEmpresas['status']."</td>
-                                    <td>
-                                        <button type='button' class='btn btn-primary btn-sm'>Visualizar</button>
-                                        <button type='button' class='btn btn-secondary btn-sm'>Editar</button>
-                                        <button type='button' class='btn btn-danger btn-sm' onclick=''>Excluir</button>
-                                    </td>
-                                </tr>
-
-                                 ";
-                            }
-                        }else{
-                            echo 'Não existem dados para serem exibidos!';
-                        }
-                ?>
+                <!--exibição do corpo da tabela listar do painel-->
+                <?php require_once './actions/listarEmpresas.php';?>
             </tbody>
         </table>
     </div><!--tabela-dados-->
@@ -93,7 +67,7 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <label for="cnpj">CNPJ</label>
-                                <input type="text" class="form-control" name="cnpj">
+                                <input type="text" class="form-control" name="cnpj" maxlength="14" required>
                             </div>
 
                             <div class="col-sm-8">
@@ -136,12 +110,12 @@
                         <div class="row">
                             <div class="col-sm-3">
                                 <label for="telefone">Telefone</label>
-                                <input type="text" class="form-control" name="telefone" required>
+                                <input type="text" class="form-control" name="telefone" maxlength="10" required>
                             </div>
 
                             <div class="col-sm-3">
                                 <label for="celular">Celular</label>
-                                <input type="text" class="form-control" name="celular" required>
+                                <input type="text" class="form-control" name="celular" maxlength="11" required>
                             </div>
 
                             <div class="col-sm-2">
@@ -181,6 +155,12 @@
             </div>
         </div>
     </div>
+    
+    <!--exibição dos modais de visualização de cadastros-->
+    <?php    require_once './actions/verEmpresa.php'; ?>
+    
+    <!--exibição dos modais de edição de cadastros-->
+    
    
     </body>
 </html>
